@@ -8,8 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Slot.ts'
-export type * from './models/Booking.ts'
-export type * from './models/IdempotencyRecord.ts'
-export type * from './models/BookingAttempt.ts'
-export type * from './commonInputTypes.ts'
+export type * from './models/Slot.js'
+export type * from './models/Booking.js'
+export type * from './models/IdempotencyRecord.js'
+export type * from './models/BookingAttempt.js'
+export type * from './commonInputTypes.js'

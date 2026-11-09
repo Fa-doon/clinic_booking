@@ -12,7 +12,7 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace.ts"
+import type * as Prisma from "./prismaNamespace.js"
 
 
 const config: runtime.GetPrismaClientConfig = {
@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.10.1",
   "engineVersion": "d1b3f377ca835d73fd50954a5e22128b9ebdd6b8",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider            = \"prisma-client\"\n  output              = \"../src/generated/prisma\"\n  importFileExtension = \"ts\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum BookingStatus {\n  confirmed\n  cancelled\n}\n\nmodel Slot {\n  id       String   @id\n  provider String\n  start    DateTime @db.Timestamptz(3)\n  end      DateTime @db.Timestamptz(3)\n\n  bookings Booking[]\n\n  @@index([provider, start])\n}\n\nmodel Booking {\n  id        String        @id @default(uuid())\n  slotId    String\n  name      String\n  email     String\n  status    BookingStatus @default(confirmed)\n  createdAt DateTime      @default(now()) @db.Timestamptz(3)\n\n  slot Slot @relation(fields: [slotId], references: [id], onDelete: Cascade)\n\n  @@index([email, createdAt])\n}\n\nmodel IdempotencyRecord {\n  id             String   @id @default(uuid())\n  key            String   @unique\n  requestBody    Json\n  responseStatus Int\n  responseBody   Json\n  createdAt      DateTime @default(now()) @db.Timestamptz(3)\n}\n\nmodel BookingAttempt {\n  id          String   @id @default(uuid())\n  email       String\n  attemptedAt DateTime @default(now()) @db.Timestamptz(3)\n\n  @@index([email, attemptedAt])\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider            = \"prisma-client\"\n  output              = \"../src/generated/prisma\"\n  importFileExtension = \"js\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum BookingStatus {\n  confirmed\n  cancelled\n}\n\nmodel Slot {\n  id       String   @id\n  provider String\n  start    DateTime @db.Timestamptz(3)\n  end      DateTime @db.Timestamptz(3)\n\n  bookings Booking[]\n\n  @@index([provider, start])\n}\n\nmodel Booking {\n  id        String        @id @default(uuid())\n  slotId    String\n  name      String\n  email     String\n  status    BookingStatus @default(confirmed)\n  createdAt DateTime      @default(now()) @db.Timestamptz(3)\n\n  slot Slot @relation(fields: [slotId], references: [id], onDelete: Cascade)\n\n  @@index([email, createdAt])\n}\n\nmodel IdempotencyRecord {\n  id             String   @id @default(uuid())\n  key            String   @unique\n  requestBody    Json\n  responseStatus Int\n  responseBody   Json\n  createdAt      DateTime @default(now()) @db.Timestamptz(3)\n}\n\nmodel BookingAttempt {\n  id          String   @id @default(uuid())\n  email       String\n  attemptedAt DateTime @default(now()) @db.Timestamptz(3)\n\n  @@index([email, attemptedAt])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
