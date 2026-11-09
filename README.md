@@ -103,8 +103,6 @@ const API_BASE_URL = "http://localhost:3000";
 const API_KEY = "your-api-key";
 ```
 
-Use a local development server, such as VS Code Live Server, to open `frontend/index.html`.
-
 ## API Documentation
 
 All API endpoints require an API key supplied through the `x-api-key` request header.
@@ -268,20 +266,3 @@ Rate-limited responses include a `Retry-After` header indicating how many second
 - A PostgreSQL partial unique index ensures that a slot cannot have more than one confirmed booking.
 - Idempotency records allow previously completed requests to be replayed safely.
 
-## Production Deployment
-
-The application can be deployed using Render:
-
-- **PostgreSQL:** Production database.
-- **Web Service:** Express API.
-- **Static Site:** Frontend.
-
-Production database migrations should be applied using:
-
-```bash
-npx prisma migrate deploy
-```
-
-Configure `DATABASE_URL` and `API_KEY` as environment variables in the backend service.
-
-Update the frontend's `config.js` with the deployed API URL and a dedicated assessment/demo API key.
