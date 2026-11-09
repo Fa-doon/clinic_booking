@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clinic Appointment Booking</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Book an Appointment</h1>
+      <p>Select an available time slot and book your appointment.</p>
+    </header>
+
+    <section id="slots-section">
+      <h2>Available Slots</h2>
+      <div id="slots-container"></div>
+    </section>
+
+    <section id="booking-section" hidden>
+    <div class="section-heading">
+        <h2>Complete Your Booking</h2>
+        <button
+        type="button"
+        id="close-booking"
+        class="close-button"
+        aria-label="Close booking form"
+        >
+        &times;
+        </button>
+    </div>
+
+    <p id="selected-slot"></p>
+
+    <form id="booking-form">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+
+        <button type="submit">Book Appointment</button>
+    </form>
+    </section>
+
+    <section id="confirmation-section" hidden>
+      <h2>Booking Confirmed!</h2>
+      <div id="confirmation-details"></div>
+    </section>
+
+    <p id="message"></p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

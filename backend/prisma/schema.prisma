@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  importFileExtension = "ts"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum BookingStatus {
+  confirmed
+  cancelled
+}
+
+model Slot {
+  id       String   @id
+  provider String
+  start    DateTime @db.Timestamptz(3)
+  end      DateTime @db.Timestamptz(3)
+
+  bookings Booking[]
+
+  @@index([provider, start])
+}
+
+model Booking {
+  id        String        @id @default(uuid())
+  slotId    String
+  name      String
+  email     String
+  status    BookingStatus @default(confirmed)
+  createdAt DateTime      @default(now()) @db.Timestamptz(3)
+
+  slot Slot @relation(fields: [slotId], references: [id], onDelete: Cascade)
+
+  @@index([email, createdAt])
+}
+
+model IdempotencyRecord {
+  id             String   @id @default(uuid())
+  key            String   @unique
+  requestBody    Json
+  responseStatus Int
+  responseBody   Json
+  createdAt      DateTime @default(now()) @db.Timestamptz(3)
+}
+
+model BookingAttempt {
+  id          String   @id @default(uuid())
+  email       String
+  attemptedAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([email, attemptedAt])
+}

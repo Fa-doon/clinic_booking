@@ -1,0 +1,351 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root {
+  --background: #f7f5ef;
+  --surface: #ffffff;
+  --primary: #173f35;
+  --primary-light: #e8f0eb;
+  --accent: #c4775b;
+  --text: #24332e;
+  --muted: #7c8780;
+  --border: #e8e6de;
+  --success: #28734d;
+  --danger: #b64c42;
+  --shadow: 0 18px 50px rgba(28, 54, 44, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  padding: 48px 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+/* Header */
+
+header {
+  position: relative;
+  overflow: hidden;
+  background: var(--primary);
+  color: white;
+  border-radius: 24px;
+  padding: 56px 60px;
+  margin-bottom: 38px;
+}
+
+header::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  right: -70px;
+  top: -120px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 35px rgba(255, 255, 255, 0.035),
+    0 0 0 70px rgba(255, 255, 255, 0.025);
+}
+
+header h1 {
+  position: relative;
+  z-index: 1;
+  max-width: 550px;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+header p {
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Main sections */
+
+section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+section h2 {
+  font-family: 'Playfair Display', serif;
+  color: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+#slots-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+/* Slot cards - these classes will be used by JavaScript */
+
+.slot-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  background: #fff;
+  transition: border-color 0.2s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.slot-card:not(.unavailable):hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(23, 63, 53, 0.08);
+}
+
+.slot-card.selected {
+  border: 2px solid var(--primary);
+  background: var(--primary-light);
+}
+
+.slot-card.unavailable {
+  opacity: 0.55;
+  background: #f5f4f0;
+}
+
+.slot-card h3 {
+  color: var(--primary);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.slot-card p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.slot-status {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.slot-status.available {
+  color: var(--success);
+  background: #e8f3eb;
+}
+
+.slot-status.booked {
+  color: var(--danger);
+  background: #f9eae7;
+}
+
+/* Booking form */
+
+#selected-slot {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+#booking-form {
+  display: grid;
+  gap: 12px;
+}
+
+#booking-form label {
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+#booking-form input {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  background: #fcfbf8;
+  color: var(--text);
+  font: inherit;
+  margin-bottom: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#booking-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(23, 63, 53, 0.1);
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  background: var(--primary);
+  color: white;
+  padding: 15px 22px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: #245848;
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Confirmation */
+
+#confirmation-section {
+  border-top: 4px solid var(--success);
+}
+
+#confirmation-details {
+  background: #f4f8f4;
+  border-radius: 12px;
+  padding: 20px;
+  line-height: 2;
+  overflow-wrap: anywhere;
+}
+
+#confirmation-details strong {
+  color: var(--primary);
+}
+
+/* Messages */
+
+#message {
+  margin: 20px 0;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+#message.error {
+  color: var(--danger);
+}
+
+#message.success {
+  color: var(--success);
+}
+
+/* Accessibility */
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(196, 119, 91, 0.45);
+  outline-offset: 3px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  body {
+    padding: 20px 14px;
+  }
+
+  header {
+    padding: 38px 26px;
+    border-radius: 18px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  section {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  section h2 {
+    font-size: 1.55rem;
+  }
+
+  #slots-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.slot-card {
+  width: 100%;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.slot-card:focus-visible {
+  outline: 3px solid rgba(196, 119, 91, 0.45);
+  outline-offset: 3px;
+}
+
+.slot-card.unavailable {
+  cursor: not-allowed;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+.close-button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.7rem;
+  font-weight: 400;
+  border-radius: 50%;
+}
+
+.close-button:hover {
+  background: var(--background);
+  color: var(--primary);
+  transform: none;
+}
